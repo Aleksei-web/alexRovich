@@ -10,6 +10,8 @@ router.get('/feetback/:id', FeetbackController.getFeedbackByWorker);
 
 router.get('/feetback_rating', FeetbackController.getFeedbackDaysAndRartind);
 
+router.get('/feetback_by_rating/:id', FeetbackController.getFeedbackByReasons); // отправляем массив опросов по id причины
+
 router.get('/reasons_by_worker/:id', FeetbackController.getReasonsByWorker); // причины плохого комментария по работнику
 
 router.get('/feetbacktest/:id', FeetbackController.getReasonsByWorker);

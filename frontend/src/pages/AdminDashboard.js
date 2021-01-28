@@ -102,7 +102,11 @@ return (
 
 
      <ul className="list-group">
-        { !!worker.length ? (worker.map(el => <ItemWorkersList deleteWorker={deleteWorker} id={el.id} name={el.name} key={el.id} />
+        { !!worker.length ? (worker.map(el => <ItemWorkersList 
+          deleteWorker={deleteWorker} 
+          id={el.id} name={el.name} 
+          key={el.id} 
+        />
         )) : (
           <li className="list-group-item disabled" aria-disabled="true">Лист пуст</li>
         )
@@ -120,8 +124,6 @@ return (
       <h2>Отзывы!</h2>
 
       { !!feedback.length ? <TableListHistoty feedback={feedback} /> : <h2>Отзывов пока нет</h2> }
-
-        
 
     </div>
 

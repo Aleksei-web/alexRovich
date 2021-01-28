@@ -36,6 +36,22 @@ class FeetbackController {
 		const id = req.params.id;
 		const posts = await db.query('SELECT title, rating, name FROM feedback JOIN worker ON feedback.id_worker = worker.id JOIN reason_list ON feedback.reasons_id = reason_list.id where id_worker = ($1)', [id])
 		res.json(posts.rows)
+  }
+  
+  async getFeedbackByReasons(req, res) {
+		const id = req.params.id;
+    const posts = await db.query(`SELECT title, 
+    rating, 
+    ts, 
+    name
+    FROM feedback 
+    JOIN worker ON 
+    feedback.id_worker = worker.id 
+    JOIN reason_list ON 
+    feedback.reasons_id = reason_list.id
+    where reasons_id = ($1)`, 
+    [id])
+		res.json(posts.rows)
 	}
 
 }

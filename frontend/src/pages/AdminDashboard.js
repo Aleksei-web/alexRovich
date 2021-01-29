@@ -8,6 +8,7 @@ import CreateWorkerForm from '../components/CreateWorkerForm';
 import CreateReasonsForm from '../components/CreateReasonsForm';
 import TableListHistoty from '../components/TableListHistory'
 import NavBar from '../components/NavBar';
+import { useCookies } from 'react-cookie';
 
 const AdminDashboard = () => {
   const [reasons, setReasons] = useState([]);
@@ -15,6 +16,7 @@ const AdminDashboard = () => {
   const [inputReason, setInputReason] = useState('');
   const [inputWorker, setInputWorker] = useState('')
   const [feedback, setFeetback] = useState([]);
+  const [cookies, setCookie] = useCookies(['connect.sid']);
 
   useEffect(() => {
     getReasons().then(res => {
@@ -25,8 +27,8 @@ const AdminDashboard = () => {
       setWorker(res.data)
     })
 
+    var data = JSON.stringify({"user_name":"admin","password":"password"});
     axios.get('http://localhost:8080/feetback').then(res => {
-      console.log(res.data);
       setFeetback(res.data)
     })
   }, [])

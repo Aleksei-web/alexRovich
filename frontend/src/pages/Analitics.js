@@ -22,7 +22,7 @@ const Analitics = () => {
       const dataX = [...new Set(data)]
       const dataArr = dataX.map((el, index) => {
         let count = data.filter((elData) => elData === el)        
-        return {x: index + 1, y: count.length, label: el}
+        return {x: index + 1, y: count.length, label: count.length, title: `${el}/${Math.round(count.length / data.length * 100)}% / ${count.length} из ${data.length} `}
       })
       setPieData(dataArr) 
       getReasons().then(res => setReasons(res.data))     
@@ -62,6 +62,8 @@ const Analitics = () => {
 
   }, [])
 
+  console.log('pieData', pieData);
+
   function getGraphiqNegativeReason(id) {
     axios.get(`http://localhost:8080/feetback_by_rating/${id}`).then(res => {
       const reasons = res.data[0].title
@@ -92,7 +94,7 @@ const Analitics = () => {
         const dataX = [...new Set(data)]
         const dataArr = dataX.map((el, index) => {
           let count = data.filter((elData) => elData === el)        
-          return {x: index + 1, y: count.length, label: `${el} - ${count.length}`}
+          return {x: index + 1, y: count.length, label: `${Math.round(count.length / data.length * 100)}%`, title: `${el} - ${Math.round(count.length / data.length * 100)}% - ${count.length} из ${data.length} `}
         })
         console.log(dataArr);
         console.log(res.data[0].name);
@@ -103,6 +105,8 @@ const Analitics = () => {
     } else return
   }
 
+  const colorScale = ["tomato", "orange", "gold", "cyan", "navy" ]
+  
 
   return (
     <>
@@ -155,8 +159,16 @@ const Analitics = () => {
             colorScale={["tomato", "orange", "gold", "cyan", "navy" ]}            
             data={pieData}
             padding={100}
+            labels='111'
+            labelRadius='80'
+            labelPosition='centroid'
             />
           }
+
+          <div className='mt-50'>
+            
+          {pieData.length ? pieData.map((el, i) => (<span className='d-flex' style={{backgroundColor: colorScale[i]}} >{el.title}</span>)) : <h2>not</h2> }
+          </div>
 
         </div>
       </div >
@@ -173,7 +185,8 @@ const Analitics = () => {
           {
             !!reasons.length && reasons.map(el => <option 
             key={el.id} 
-            value={el.id}           
+            value={el.id}
+
             >
               {el.title}
             </option>)

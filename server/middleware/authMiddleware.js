@@ -1,10 +1,9 @@
  const isAdminMiddleware = (req, res, next) => {
-   console.log(req.session);
-  if(!req.session.admin) {
-    return res.sendStatus(400)
-  } else {
-    next()
-  }
+  
+   // req.session = req.headers
+    console.log('middleware', req.session);
+   
+   next()
 }
 
 module.exports = isAdminMiddleware;

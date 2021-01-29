@@ -9,8 +9,8 @@ class AdminController {
     );
     res.json(newReason.rows[0]);
   }
+
   async getReason(req, res) {
-    console.log(req.session);
     const reasons = await db.query("SELECT * FROM reason_list");
     res.json(reasons.rows);
   }

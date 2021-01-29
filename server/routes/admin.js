@@ -5,7 +5,7 @@ const isAdminMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
  // причины
 router.post('/reason', AdminController.createrReason)
-router.get('/reasons', AdminController.getReason)
+router.get('/reasons', isAdminMiddleware, AdminController.getReason)
 router.get('/reason/:id',  AdminController.getOneReason)
 router.put('/reason',  AdminController.updateReason)
 router.delete('/reason/:id', AdminController.deleteReason)

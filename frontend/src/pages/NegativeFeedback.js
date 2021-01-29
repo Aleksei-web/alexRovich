@@ -26,10 +26,11 @@ const NegativeFeedback = ({match}) => {
   }
 
   return (
-    <>
+    <div className='container'>
       <h2 className="mt-4">Укажите причину</h2>
       <div className='mt-5'>
-        { !!reasons.length ? (reasons.map(el => <ButtonSendMessage 
+        { !!reasons.length ? (reasons.map(el => <ButtonSendMessage
+          setInputValue={setInputValue}
           key={el.id} 
           setVariantReasone={setVariantReasone} 
           id={el.id} title={el.title} />)
@@ -45,7 +46,7 @@ const NegativeFeedback = ({match}) => {
         inputValue={inputValue}
         setInputValue={setInputValue}
       />
-    </>
+    </div>
   )
 }
 

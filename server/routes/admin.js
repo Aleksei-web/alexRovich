@@ -1,14 +1,13 @@
-const express = require('express')
-const AdminController = require('../controllesr/admin');
-const isAdminMiddleware = require('../middleware/authMiddleware');
+const express = require("express");
+const AdminController = require("../controllesr/admin");
+const isAdminMiddleware = require('../middleware/adminMiddleware')
 
 const router = express.Router();
- // причины
-router.post('/reason', AdminController.createrReason)
-router.get('/reasons', isAdminMiddleware, AdminController.getReason)
-router.get('/reason/:id',  AdminController.getOneReason)
-router.put('/reason',  AdminController.updateReason)
-router.delete('/reason/:id', AdminController.deleteReason)
-
+// причины
+router.post("/reason", isAdminMiddleware, AdminController.createrReason);
+router.get("/reasons", isAdminMiddleware, AdminController.getReason);
+router.get("/reason/:id",  AdminController.getOneReason);
+router.put("/reason", isAdminMiddleware, AdminController.updateReason);
+router.delete("/reason/:id", isAdminMiddleware, AdminController.deleteReason);
 
 module.exports = router;

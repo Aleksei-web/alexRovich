@@ -1,7 +1,8 @@
 const db = require("../db");
 
 class AdminController {
-  async createrReason(req, res) { // создать причину
+  async createrReason(req, res) {
+    // создать причину
     const { title } = req.body;
     const newReason = await db.query(
       `INSERT INTO reason_list (title) values ($1) RETURNING *`,
@@ -11,13 +12,16 @@ class AdminController {
   }
 
   async getReason(req, res) {
+    console.log('reasons', req.session);
     const reasons = await db.query("SELECT * FROM reason_list");
     res.json(reasons.rows);
   }
 
   async getOneReason(req, res) {
     const id = req.params.id;
-    const reason = await db.query("SELECT * FROM reason_list where id = $1", [id]);
+    const reason = await db.query("SELECT * FROM reason_list where id = $1", [
+      id,
+    ]);
     res.json(reason.rows[0]);
   }
 
@@ -31,10 +35,12 @@ class AdminController {
   }
 
   async deleteReason(req, res) {
-		const id = req.params.id;
-    const reason = await db.query("DELETE FROM reason_list where id = $1", [id]);
+    const id = req.params.id;
+    const reason = await db.query("DELETE FROM reason_list where id = $1", [
+      id,
+    ]);
     res.json(reason.rows[0]);
-	}
+  }
 }
 
 module.exports = new AdminController();

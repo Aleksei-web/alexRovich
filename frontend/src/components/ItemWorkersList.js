@@ -1,13 +1,20 @@
-import React from 'react'
+import React from "react";
 
-const ItemWorkersList = ({name, id, deleteWorker}) => {
+const ItemWorkersList = ({ name, id, deleteWorker }) => {
   return (
-    <li className="list-group-item d-flex justify-content-between">{name}
-    <span>
-        <button value={id} onClick={deleteWorker} className="btn btn-outline-danger">Удалить</button>
+    <li className="list-group-item d-flex justify-content-between">
+      {name}
+      <span>
+        <button
+          value={id}
+          onClick={deleteWorker}
+          className="btn btn-outline-danger"
+        >
+          Удалить
+        </button>
       </span>
-    </li> 
-  )
-}
+    </li>
+  );
+};
 
-export default ItemWorkersList
+export default ItemWorkersList;

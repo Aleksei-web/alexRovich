@@ -9,12 +9,12 @@ create TABLE post (
 	title VARCHAR(225),
 	content VARCHAR(225),
 	user_id INTEGER,
-	FOREIGN KEY (user_id) REFERENCES person (id)
+	FOREIGN KEY (user_id) REFERENCES worker (id)
 );
 
 
 create TABLE reason_list (
-  id SERIAL PRIMARY KEY,
+  id_reason SERIAL PRIMARY KEY,
   title VARCHAR(225)
 );
 
@@ -26,7 +26,7 @@ create TABLE feedback (
 	FOREIGN KEY (reasons_id) REFERENCES reason_list (id),
 	id_worker INTEGER,
 	FOREIGN KEY (id_worker) REFERENCES worker (id),
-	ts timestamp without time zone default current_timestamp
+	ts DATE
 );
 
 create TABLE users (

@@ -1,13 +1,14 @@
 import axios from 'axios';
+import {URL_SERVER} from '../config'
 
 export const getWorkersDb = () => {
-  return axios.get('http://localhost:8080/workers')
+  return axios.get(`${URL_SERVER}/workers`, {withCredentials: true})
 }
 
 export const deleteWorkersDb = (id) => {
-  return axios.delete(`http://localhost:8080/worker/${id}`)
+  return axios.delete(`${URL_SERVER}/worker/${id}`, {withCredentials: true})
 }
 
 export const createWorkerDb = (name) => {
-  return axios.post(`http://localhost:8080/worker`, {name})
+  return axios.post(`${URL_SERVER}/worker`, {name}, {withCredentials: true})
 }

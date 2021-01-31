@@ -1,6 +1,6 @@
 const initState = () => {
   const IS = {
-    user: null || window.localStorage.getItem("user")
+    user: null || window.localStorage.getItem("user"),
   };
 
   return IS;

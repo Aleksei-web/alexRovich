@@ -9,6 +9,6 @@ export const deleteWorkersDb = (id) => {
   return axios.delete(`${URL_SERVER}/worker/${id}`, {withCredentials: true})
 }
 
-export const createWorkerDb = (name) => {
-  return axios.post(`${URL_SERVER}/worker`, {name}, {withCredentials: true})
+export const createWorkerDb = (name, id) => {
+  return axios.post(`${URL_SERVER}/worker`, {name, id}, {withCredentials: true})
 }

@@ -8,10 +8,10 @@ const CreateReasonsForm = ({createReason, setInputReason, inputReason}) => {
         type="text" 
         className="form-control" 
         value={inputReason}
-        onChange={e => {setInputReason(e.target.value)}}
+        onChange={e => {setInputReason(e.target.value)}}        
       />
     </div>
-    <button className="btn btn-primary">Cодать</button>
+    <button className="btn btn-primary">Cохранить</button>
   </form>
   )
 }

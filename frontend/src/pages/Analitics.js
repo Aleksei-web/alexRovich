@@ -7,12 +7,18 @@ import {
   VictoryLine,
   VictoryTheme,
   VictoryLegend,
+  VictoryAxis,
+  VictoryTooltip
 } from "victory";
 import axios from "axios";
 import NavBar from "../components/NavBar";
 import { getReasons } from "../api/reasons";
 import "./LoaderAnimate.css";
 import { URL_SERVER } from "../config";
+import DateInput from "../components/DateInput";
+import TableReasons from "./TableReasons";
+
+
 
 const Analitics = () => {
   const [pieData, setPieData] = useState([
@@ -30,6 +36,9 @@ const Analitics = () => {
   const [workerSomeRating, setWorkerSomeRating] = useState(0);
   const [graphiqNegativeReason, setGraphiqNegativeReason] = useState([]);
   const [reasons, setReasons] = useState([]);
+  
+
+  
 
   useEffect(() => {
     axios
@@ -101,6 +110,7 @@ const Analitics = () => {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res.data);
         let allDate = res.data.map((el) => {
           let date = new Date(el.ts);
           return date.getDate();
@@ -113,8 +123,9 @@ const Analitics = () => {
             let elDate = new Date(el.ts);
             return date === elDate.getDate();
           });
-          return { x: date, y: arrY.length };
+          return { x: String(date), y: arrY.length };
         });
+        console.log('reasonsData===>>', reasonsData);
         setGraphiqNegativeReason(reasonsData);
       });
   }
@@ -162,7 +173,9 @@ const Analitics = () => {
       <div className="container">
         <h2>Графики</h2>
         <div className="d-flex">
+      
           <div style={{ width: "50%" }}>
+            <DateInput />
             <VictoryChart
               theme={VictoryTheme.grayscale}
               animate={{ duration: 500 }}
@@ -176,8 +189,13 @@ const Analitics = () => {
                 colorScale={["red", "green"]}
               >
                 <VictoryBar
+                 labels={({ datum }) => `${datum.y} отзывов`}
+                 labelComponent={
+                   <VictoryTooltip
+                     flyoutStyle={{ stroke: "tomato", strokeWidth: 2 }}
+                   />
+                 }
                   data={dataDanger}
-                  // labels={({ datum }) => datum.y}
                   style={{ data: { color: "red" } }}
                   animate={{
                     duration: 1000,
@@ -193,7 +211,12 @@ const Analitics = () => {
                 />
                 <VictoryBar
                   data={dataSucsses}
-                  style={{ X: { fill: "red" } }}
+                  labels={({ datum }) => `${datum.y} отзывов`}
+                  labelComponent={
+                    <VictoryTooltip
+                      flyoutStyle={{ stroke: "tomato", strokeWidth: 2 }}
+                    />
+                  }
                   // labels={({ datum }) => datum.y}
                   animate={{
                     duration: 2000,
@@ -201,7 +224,8 @@ const Analitics = () => {
                 />
               </VictoryGroup>
             </VictoryChart>
-          </div>
+        </div>
+         
 
           <div style={{ width: "50%" }}>
             <select onChange={selectChageWorker} className="form-select">
@@ -267,11 +291,11 @@ const Analitics = () => {
         </div>
 
         <div style={{ width: "50%" }}>
-          <h3>График по причинам негатива</h3>
+          <h3>График средний рейтинг работника</h3>
 
           <select
             onChange={(e) => getGraphiqNegativeReason(e.target.value)}
-            className="form-select"
+            className="mt-5 form-select"
           >
             <option>Выберите причину</option>
             {!!reasons.length &&
@@ -285,10 +309,16 @@ const Analitics = () => {
           <VictoryChart theme={VictoryTheme.material}>
             <VictoryLine
               interpolation="bundle"
-              animate={{
-                duration: 2000,
+              animate={{               
+                duration: 1000,
                 onLoad: { duration: 1000 },
               }}
+              labels={({ datum }) => `${datum.x} отзывов`}
+                  labelComponent={
+                    <VictoryTooltip
+
+                      flyoutStyle={{ stroke: "tomato", strokeWidth: 2 }}
+                    />}
               style={{
                 width: "100%",
                 data: { stroke: "#c43a31" },
@@ -296,8 +326,15 @@ const Analitics = () => {
               }}
               data={graphiqNegativeReason}
             />
+             {/* <VictoryAxis
+              tickValues={graphiqNegativeReason.map(el => String(el.x))}             
+            /> */}
+            {/* <VictoryAxis
+              label={(data) => data.x}
+            /> */}
           </VictoryChart>
         </div>
+        <TableReasons />
       </div>
     </>
   );

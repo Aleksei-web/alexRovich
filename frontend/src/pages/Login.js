@@ -25,7 +25,7 @@ const Login = () => {
         if (res.status === 200) {
           dispatch(add_user(name));
           window.localStorage.setItem("user", name);
-          history.push("/admin");
+          history.push("/analitics");
         }
       });
   };

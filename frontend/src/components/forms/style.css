@@ -1,0 +1,10 @@
+
+
+.page_blank {
+  background-color: 'red';
+  
+  margin-top: 20%;
+  left: 30%;
+  z-index: 5;
+  position: absolute;
+}

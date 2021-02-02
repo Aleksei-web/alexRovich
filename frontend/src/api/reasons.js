@@ -5,8 +5,8 @@ export const getReasons = () => {
   return axios.get(`${URL_SERVER}/reasons`, {withCredentials: true})
 }
 
-export const createReasonDb = (title) => {
-  return axios.post( `${URL_SERVER}/reason`, {title}, {withCredentials: true})
+export const createReasonDb = (title, id) => {
+  return axios.post( `${URL_SERVER}/reason`, {title, id}, {withCredentials: true})
 }
 
 export const deleteReasonDb = (id) => {

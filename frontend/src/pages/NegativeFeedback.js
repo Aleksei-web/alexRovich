@@ -4,6 +4,7 @@ import ButtonSendMessage from "../components/ButtonSendMessage";
 import FormSendMessage from "../components/FormSendMessage";
 import { saveFeetbackDb } from "../api/feetback";
 import { getReasons } from "../api/reasons";
+import { useHistory } from "react-router-dom";
 
 const NegativeFeedback = ({ match }) => {
   const [inputValue, setInputValue] = useState("");
@@ -18,10 +19,16 @@ const NegativeFeedback = ({ match }) => {
     });
   }, []);
 
+  const history = useHistory()
+
   const sendFeedback = (e) => {
     e.preventDefault();
-    saveFeetbackDb(id_worker, -1, inputValue, variantRaesone).then((res) =>
+    saveFeetbackDb(id_worker, 2, inputValue, variantRaesone).then((res) =>{
+      if(res.status === 200) {
+        history.push('/bye')
+      }
       console.log(res.data)
+    }
     );
   };
 

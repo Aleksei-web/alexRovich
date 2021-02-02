@@ -3,12 +3,14 @@ const db = require("../db");
 class FeetbackController {
   async createFeedback(req, res) {
     const ts = new Date().toISOString().split("T")[0];
+    console.log('ts', ts);
     console.log(ts);
     const { id_worker, rating, comment, reasons_id } = req.body;
     const feetback = await db.query(
       "INSERT INTO feedback (comment, rating, id_worker, reasons_id, ts) values ($1, $2, $3, $4, $5) RETURNING *",
       [comment, rating, id_worker, reasons_id, ts]
     );
+    console.log(feetback.rows[0])
     res.json(feetback.rows[0]);
   }
 
@@ -19,7 +21,7 @@ class FeetbackController {
       JOIN worker ON 
       feedback.id_worker = worker.id 
       LEFT JOIN reason_list ON feedback.reasons_id = reason_list.id
-      ORDER BY ts
+      ORDER BY ts DESC
       `
     );
     res.json(reasons.rows);
@@ -36,8 +38,7 @@ class FeetbackController {
       ts, name, rating 
       FROM feedback
       JOIN worker ON 
-      feedback.id_worker = worker.id 
-      WHERE ts BETWEEN '2021-01-23' AND '2021-01-29'
+      feedback.id_worker = worker.id
       ORDER BY ts
       `
     );

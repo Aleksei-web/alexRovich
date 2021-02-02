@@ -25,13 +25,40 @@ const NavBar = () => {
       style={{ backgroundColor: "#e3f2fd" }}
     >
       <div className="container-fluid">
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div  className="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
           <ul className="navbar-nav">
+            <li class="nav-item dropdown">
+              <Link class="nav-link dropdown-toggle" 
+                id="navbarDropdown"
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false"
+              >
+                Админ
+              </Link>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <Link to="/workers" className="nav-link">
+                    Работники
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/reasons" className="nav-link">
+                    Причины
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
             <li className="nav-item">
-              <Link to="/admin" className="nav-link">
-                Admin
+              <Link to="/analitics" className="nav-link">
+                Аналитика
               </Link>
             </li>
+          </ul>
+
+          <ul className="navbar-nav">          
             {user ? (
               <li onClick={logout} className="nav-item">
                 <span className="nav-link pointer">Выход</span>
@@ -43,11 +70,7 @@ const NavBar = () => {
                 </Link>
               </li>
             )}
-            <li className="nav-item">
-              <Link to="/analitics" className="nav-link">
-                Аналитика
-              </Link>
-            </li>
+
           </ul>
         </div>
       </div>

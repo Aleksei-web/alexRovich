@@ -5,7 +5,9 @@ const PositiveFeedback = ({ match }) => {
   const id_worker = match.params.id;
 
   useEffect(() => {
-    saveFeetbackDb(id_worker, 1).then((res) => console.log(res.data));
+    if(id_worker) {
+      saveFeetbackDb(id_worker, 5).then((res) => console.log(res.data));
+    }
   }, []);
 
   return (

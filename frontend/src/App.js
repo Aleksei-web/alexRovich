@@ -6,11 +6,15 @@ import Login from "./pages/Login";
 import NegativeFeedback from "./pages/NegativeFeedback";
 import PositiveFeedback from "./pages/PositiveFeedback";
 import { CookiesProvider } from "react-cookie";
+import Workers from "./pages/Workers";
+import Reasons from "./pages/Reasons";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <Router>
-      <CookiesProvider>
+      <ToastContainer />
         <Switch>
           <Route
             exact
@@ -22,11 +26,12 @@ function App() {
             path="/negativeFeedback/:id"
             component={NegativeFeedback}
           />
-          <AdminRouter exact path="/admin" component={AdminDashboard} />
+          <AdminRouter exact path="/workers" component={Workers} />
+          <Route exact path="/bye" component={PositiveFeedback} />
+          <AdminRouter exact path="/reasons" component={Reasons} />
           <Route exact path="/login" component={Login} />
           <AdminRouter exact path="/analitics" component={Analitics} />
         </Switch>
-      </CookiesProvider>
     </Router>
   );
 }
